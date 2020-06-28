@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: django-web-app
+  labels:
+    app: django-web
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: django-web
+  template:
+    metadata:
+      labels:
+        app: django-web
+    spec:
+      containers:
+        - name: django-web-container
+          imagePullPolicy: Always
+          image: djangoaksregistry.azurecr.io/django-aks:v1.0.0
+          ports:
+          - containerPort: 8010
+          env:
+            - name: HOST_IP
+              valueFrom:
+                fieldRef:
+                  fieldPath: status.hostIP
+      imagePullSecrets:
+        - name: acr-secret

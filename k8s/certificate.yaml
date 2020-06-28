@@ -1,0 +1,13 @@
+apiVersion: cert-manager.io/v1alpha2
+kind: Certificate
+metadata:
+  name: extra-certificate
+  namespace: djaks
+spec:
+  secretName: tls-secret
+  issuerRef:
+    # name: letsencrypt-staging
+    name: letsencrypt-prod
+  commonName: cvgm-ingress.westeurope.cloudapp.azure.com
+  dnsNames:
+  - www.cvgm-ingress.westeurope.cloudapp.azure.com
